@@ -30,12 +30,6 @@ public class TemperatureService {
         return null;
     }
 
-    public void updateSensor(int index, TemperatureSensor sensor) {
-        if (index >= 0 && index < sensors.size()) {
-            sensors.set(index, sensor);
-        }
-    }
-
     public void removeSensor(int index) {
         if (index >= 0 && index < sensors.size()) {
             sensors.remove(index);

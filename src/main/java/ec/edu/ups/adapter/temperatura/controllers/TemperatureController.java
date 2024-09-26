@@ -44,33 +44,6 @@ public class TemperatureController {
         return "redirect:/";
     }
 
-    // Formulario para actualizar un sensor
-    @GetMapping("/updateSensor/{index}")
-    public String showUpdateSensorForm(@PathVariable("index") int index, Model model) {
-        TemperatureSensor sensor = service.getSensor(index);
-        model.addAttribute("sensor", sensor);
-        model.addAttribute("index", index);
-        return "updateSensor";
-    }
-
-    // Manejar el envío del formulario para actualizar un sensor
-    public String updateSensor(
-            @PathVariable("index") int index,
-            @ModelAttribute("sensor") TemperatureSensor sensor,
-            @RequestParam String type) {
-
-        if (type.equals("fahrenheit")) {
-            // Crear un nuevo FahrenheitSensor con la temperatura del sensor actualizado
-            FahrenheitSensor fahrenheitSensor = new FahrenheitSensor(sensor.getTemperature());
-            TemperatureAdapter adapter = new TemperatureAdapter(fahrenheitSensor);
-            service.updateSensor(index, adapter); // Asegúrate de que este método esté correctamente definido
-        } else {
-            service.updateSensor(index, sensor);
-        }
-
-        return "redirect:/";
-    }
-
     // Eliminar un sensor
     @GetMapping("/deleteSensor/{index}")
     public String deleteSensor(@PathVariable("index") int index) {
