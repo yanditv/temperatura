@@ -54,9 +54,20 @@ public class TemperatureController {
     }
 
     // Manejar el envío del formulario para actualizar un sensor
-    @PostMapping("/updateSensor/{index}")
-    public String updateSensor(@PathVariable("index") int index, @ModelAttribute("sensor") CelsiusSensor sensor) {
-        service.updateSensor(index, sensor);
+    public String updateSensor(
+            @PathVariable("index") int index,
+            @ModelAttribute("sensor") TemperatureSensor sensor,
+            @RequestParam String type) {
+
+        if (type.equals("fahrenheit")) {
+            // Crear un nuevo FahrenheitSensor con la temperatura del sensor actualizado
+            FahrenheitSensor fahrenheitSensor = new FahrenheitSensor(sensor.getTemperature());
+            TemperatureAdapter adapter = new TemperatureAdapter(fahrenheitSensor);
+            service.updateSensor(index, adapter); // Asegúrate de que este método esté correctamente definido
+        } else {
+            service.updateSensor(index, sensor);
+        }
+
         return "redirect:/";
     }
 

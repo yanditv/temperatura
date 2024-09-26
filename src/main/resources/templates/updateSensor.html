@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Actualizar Sensor</title>
+  </head>
+  <body>
+    <h1>Actualizar Sensor de Temperatura</h1>
+    <form
+      action="#"
+      th:action="@{/updateSensor/{index}(index=${index})}"
+      method="post"
+      th:object="${sensor}"
+    >
+      <label for="type">Tipo de Sensor:</label>
+      <select name="type" th:field="*{type}">
+        <option
+          value="celsius"
+          th:selected="${sensor instanceof T(ec.edu.ups.adapter.temperatura.models.CelsiusSensor)}"
+        >
+          Celsius
+        </option>
+        <option
+          value="fahrenheit"
+          th:selected="${sensor instanceof T(ec.edu.ups.adapter.temperatura.models.FahrenheitSensor)}"
+        >
+          Fahrenheit
+        </option>
+      </select>
+
+      <label for="temperature">Temperatura:</label>
+      <input
+        type="number"
+        id="temperature"
+        name="temperature"
+        th:field="*{temperature}"
+      />
+      <br />
+
+      <input type="submit" value="Actualizar" />
+    </form>
+    <a href="/">Volver</a>
+  </body>
+</html>
