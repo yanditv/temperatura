@@ -1,29 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sensores de Temperatura</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <h1>Lista de Sensores de Temperatura</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Tipo</th>
-          <th>Temperatura (Celsius)</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="sensor, stat : ${sensors}">
-          <td th:text="${sensor.getClass().getSimpleName()}"></td>
-          <td th:text="${sensor.getTemperature()}"></td>
-          <td>
-            <a th:href="@{'/updateSensor/' + ${stat.index}}">Actualizar</a> |
-            <a th:href="@{'/deleteSensor/' + ${stat.index}}">Eliminar</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <a href="/addSensor">Añadir Sensor</a>
+  <body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+      <h1 class="text-2xl font-bold mb-4">Lista de Sensores de Temperatura</h1>
+      <table class="min-w-full bg-white border border-gray-300 rounded shadow">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="py-2 px-4 border-b text-left">Tipo</th>
+            <th class="py-2 px-4 border-b text-left">Temperatura (Celsius)</th>
+            <th class="py-2 px-4 border-b text-left">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="sensor, stat : ${sensors}">
+            <td
+              class="py-2 px-4 border-b"
+              th:text="${sensor.getClass().getSimpleName()}"
+            ></td>
+            <td
+              class="py-2 px-4 border-b"
+              th:text="${sensor.getTemperature()}"
+            ></td>
+            <td class="py-2 px-4 border-b">
+              <a
+                th:href="@{'/deleteSensor/' + ${stat.index}}"
+                class="text-red-600 hover:text-red-800"
+                >Eliminar</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <a
+        href="/addSensor"
+        class="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+        >Añadir Sensor</a
+      >
+    </div>
   </body>
 </html>
