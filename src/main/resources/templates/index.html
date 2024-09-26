@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Sensores de Temperatura</title>
+  </head>
+  <body>
+    <h1>Lista de Sensores de Temperatura</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Temperatura (Celsius)</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="sensor, stat : ${sensors}">
+          <td th:text="${sensor.getClass().getSimpleName()}"></td>
+          <td th:text="${sensor.getTemperature()}"></td>
+          <td>
+            <a th:href="@{'/updateSensor/' + ${stat.index}}">Actualizar</a> |
+            <a th:href="@{'/deleteSensor/' + ${stat.index}}">Eliminar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <a href="/addSensor">Añadir Sensor</a>
+  </body>
+</html>
